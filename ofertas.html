@@ -9,48 +9,47 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --verde: #000000;
-      --verde-oscuro: #0F6E56;
-      --verde-claro: #E1F5EE;
-      --naranja: #EF9F27;
-      --naranja-claro: #FAEEDA;
-      --gris: #444441;
-      --gris-claro: #F1EFE8;
-      --blanco: #ffffff;
-      --texto: #2C2C2A;
+      --amarillo: #FFD000;
+      --negro: #080808;
+      --negro-card: #0f0f0f;
+      --negro-card-hover: #141414;
+      --rojo-oscuro: #7d1515;
+      --gris: #aaaaaa;
+      --gris-borde: #1e1e1e;
+      --texto: #ffffff;
     }
-    body { font-family: 'DM Sans', sans-serif; color: var(--texto); background: var(--blanco); }
+    body { font-family: 'DM Sans', sans-serif; color: var(--texto); background: var(--negro); }
 
     nav {
-      background: var(--verde-oscuro); padding: 1rem 2rem;
+      background: var(--negro); padding: 1rem 2rem;
       display: flex; justify-content: space-between; align-items: center;
       position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--gris-borde);
     }
     .nav-logo {
-      font-family: 'Playfair Display', serif; color: var(--blanco);
+      font-family: 'Playfair Display', serif; color: var(--amarillo);
       font-size: 1.4rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
     }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.activo { color: var(--naranja); }
+    .nav-links a:hover, .nav-links a.activo { color: var(--amarillo); }
 
     .page-header {
-      background: var(--gris-claro);
+      background: linear-gradient(135deg, #0d0000 0%, var(--rojo-oscuro) 50%, #1a0000 100%);
       padding: 3rem 2rem 2rem;
       text-align: center;
     }
     .page-header h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2.2rem;
-      color: var(--verde-oscuro);
+      color: var(--texto);
       margin-bottom: 0.5rem;
     }
-    .page-header p { color: var(--gris); font-size: 1rem; }
+    .page-header p { color: rgba(255,255,255,0.7); font-size: 1rem; }
 
-    /* FILTROS */
     .filtros {
-      background: var(--blanco);
-      border-bottom: 1px solid #e0e0d8;
+      background: var(--negro);
+      border-bottom: 1px solid var(--gris-borde);
       padding: 1rem 2rem;
       display: flex;
       gap: 0.75rem;
@@ -58,40 +57,40 @@
       justify-content: center;
     }
     .filtro-btn {
-      background: var(--blanco);
-      border: 1.5px solid #d0d0c8;
+      background: transparent;
+      border: 1.5px solid var(--gris-borde);
       border-radius: 50px;
       padding: 0.45rem 1.1rem;
       font-size: 0.88rem;
       font-weight: 500;
       cursor: pointer;
-      color: var(--texto);
+      color: rgba(255,255,255,0.75);
       transition: all 0.2s;
       font-family: 'DM Sans', sans-serif;
     }
-    .filtro-btn:hover { border-color: var(--verde); color: var(--verde); }
-    .filtro-btn.activo { background: var(--verde); border-color: var(--verde); color: var(--blanco); }
+    .filtro-btn:hover { border-color: var(--amarillo); color: var(--amarillo); }
+    .filtro-btn.activo { background: var(--amarillo); border-color: var(--amarillo); color: var(--negro); }
 
-    /* LISTA DE OFERTAS */
     .ofertas-container {
       max-width: 900px;
       margin: 2.5rem auto;
       padding: 0 2rem;
     }
     .oferta-card {
-      background: var(--blanco);
-      border: 1px solid #e0e0d8;
+      background: var(--negro-card);
+      border: 1px solid var(--gris-borde);
       border-radius: 16px;
       padding: 1.5rem 1.75rem;
       margin-bottom: 1.25rem;
       display: flex;
       align-items: flex-start;
       gap: 1.25rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
     .oferta-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.07);
+      background: var(--negro-card-hover);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
     }
     .oferta-icono {
       font-size: 2.4rem;
@@ -100,7 +99,7 @@
       padding-top: 0.2rem;
     }
     .oferta-info { flex: 1; }
-    .oferta-info h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .oferta-info h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; color: #ffffff; }
     .oferta-info p { font-size: 0.9rem; color: var(--gris); line-height: 1.6; margin-bottom: 0.75rem; }
     .oferta-meta {
       display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;
@@ -110,30 +109,33 @@
       font-size: 0.78rem; font-weight: 600;
       padding: 0.25rem 0.7rem;
       border-radius: 50px;
-      background: var(--verde-claro);
-      color: var(--verde-oscuro);
+      background: #181818;
+      color: rgba(255,255,255,0.8);
+      border: 1px solid #1e1e1e;
     }
-    .tag.urgente { background: var(--naranja-claro); color: #854F0B; }
-    .tag.turno { background: var(--gris-claro); color: var(--gris); }
+    .tag.urgente { background: rgba(255, 208, 0, 0.10); color: var(--amarillo); border-color: rgba(255,208,0,0.25); }
+    .tag.turno { background: #0f0f0f; color: var(--gris); border-color: #1e1e1e; }
     .oferta-accion { display: flex; align-items: center; }
     .btn-postular {
-      background: var(--verde);
-      color: var(--blanco);
+      background: var(--amarillo);
+      color: var(--negro);
       padding: 0.65rem 1.4rem;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
       white-space: nowrap;
       transition: background 0.2s, transform 0.2s;
     }
-    .btn-postular:hover { background: var(--verde-oscuro); transform: scale(1.03); }
+    .btn-postular:hover { background: #e6bc00; transform: scale(1.03); }
 
     footer {
-      background: var(--texto); color: rgba(255,255,255,0.7);
+      background: #050505;
+      color: rgba(255,255,255,0.4);
       text-align: center; padding: 1.5rem 2rem; font-size: 0.85rem; margin-top: 3rem;
+      border-top: 1px solid var(--gris-borde);
     }
-    footer a { color: var(--naranja); text-decoration: none; }
+    footer a { color: var(--amarillo); text-decoration: none; }
 
     @media (max-width: 600px) {
       .oferta-card { flex-direction: column; }
