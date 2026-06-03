@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Postularse · El Dorado</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ================================
+       RESET
+    ================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ================================
+       COLORES
+    ================================= */
+    :root {
+      --rojo: #9e1d1d;
+      --rojo-oscuro: #7d1515;
+
+      --negro: #111111;
+      --negro-suave: #1b1b1b;
+
+      --amarillo: #FFD000;
+
+      --gris: #bdbdbd;
+
+      --blanco: #ffffff;
+      --texto: #f5f5f5;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--negro);
+      color: var(--texto);
+    }
+
+    /* ================================
+       NAV
+    ================================= */
+    nav {
+      background: #000000;
+
+      padding: 1rem 2rem;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom: 3px solid var(--amarillo);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+
+      color: var(--amarillo);
+
+      font-size: 1.5rem;
+
+      text-decoration: none;
+
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+
+      font-weight: bold;
+    }
+
+    .nav-logo img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+
+      text-decoration: none;
+
+      font-size: 0.95rem;
+      font-weight: 500;
+
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.activo {
+      color: var(--amarillo);
+    }
+
+    /* ================================
+       HEADER
+    ================================= */
+    .page-header {
+      background: linear-gradient(
+        135deg,
+        #000000 0%,
+        var(--rojo) 100%
+      );
+
+      padding: 4rem 2rem 3rem;
+
+      text-align: center;
+
+      color: var(--blanco);
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+
+      font-size: 2.5rem;
+
+      margin-bottom: 0.7rem;
+    }
+
+    .page-header p {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    /* ================================
+       FORMULARIO
+    ================================= */
+    .form-container {
+      max-width: 700px;
+
+      margin: 3rem auto;
+
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: var(--negro-suave);
+
+      border: 2px solid #2a2a2a;
+
+      border-radius: 22px;
+
+      padding: 2.5rem;
+
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    }
+
+    .form-grupo {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-grupo label {
+      display: block;
+
+      font-weight: 600;
+
+      font-size: 0.92rem;
+
+      margin-bottom: 0.5rem;
+
+      color: var(--amarillo);
+    }
+
+    .form-grupo input,
+    .form-grupo select,
+    .form-grupo textarea {
+
+      width: 100%;
+
+      padding: 0.9rem 1rem;
+
+      border: 2px solid #333333;
+
+      border-radius: 12px;
+
+      font-size: 0.95rem;
+
+      font-family: 'DM Sans', sans-serif;
+
+      color: white;
+
+      background: #111111;
+
+      transition: 0.2s;
+
+      outline: none;
+    }
+
+    .form-grupo input:focus,
+    .form-grupo select:focus,
+    .form-grupo textarea:focus {
+
+      border-color: var(--amarillo);
+
+      box-shadow: 0 0 0 4px rgba(255,208,0,0.15);
+    }
+
+    .form-grupo textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-fila {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 1rem;
+    }
+
+    .obligatorio {
+      color: #ff5a5a;
+    }
+
+    /* ================================
+       BOTÓN
+    ================================= */
+    .btn-enviar {
+      width: 100%;
+
+      background: var(--amarillo);
+
+      color: black;
+
+      border: none;
+
+      padding: 1rem;
+
+      border-radius: 50px;
+
+      font-size: 1.05rem;
+
+      font-weight: 700;
+
+      font-family: 'DM Sans', sans-serif;
+
+      cursor: pointer;
+
+      margin-top: 0.5rem;
+
+      transition: 0.25s;
+    }
+
+    .btn-enviar:hover {
+      transform: translateY(-3px);
+
+      background: #ffe15a;
+
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* ================================
+       MENSAJE
+    ================================= */
+    .mensaje-exito {
+
+      display: none;
+
+      background: rgba(255,208,0,0.12);
+
+      border: 2px solid var(--amarillo);
+
+      border-radius: 14px;
+
+      padding: 1.3rem 1.5rem;
+
+      margin-top: 1.5rem;
+
+      text-align: center;
+
+      color: var(--amarillo);
+
+      font-weight: 600;
+    }
+
+    .mensaje-exito span {
+      font-size: 1.8rem;
+
+      display: block;
+
+      margin-bottom: 0.5rem;
+    }
+
+    /* ================================
+       FOOTER
+    ================================= */
+    footer {
+
+      background: #000000;
+
+      color: rgba(255,255,255,0.7);
+
+      text-align: center;
+
+      padding: 1.5rem 2rem;
+
+      font-size: 0.85rem;
+
+      border-top: 3px solid var(--amarillo);
+    }
+
+    footer a {
+      color: var(--amarillo);
+
+      text-decoration: none;
+    }
+
+    /* ================================
+       RESPONSIVE
+    ================================= */
+    @media (max-width: 650px) {
+
+      .form-fila {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 1.5rem;
+      }
+
+      nav {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .page-header {
+        padding: 3rem 1rem;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.png" alt="Logo El Dorado">
+      El Dorado
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="ofertas.html">Ofertas</a></li>
+      <li><a href="formulario.html" class="activo">Postularse</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <h1>Enviá tu postulación</h1>
+
+    <p>Completá el formulario y te contactamos en menos de 48 horas</p>
+
+  </div>
+
+  <!-- FORM -->
+  <div class="form-container">
+
+    <div class="form-card">
+
+      <div class="form-fila">
+
+        <div class="form-grupo">
+          <label>Nombre <span class="obligatorio">*</span></label>
+          <input type="text" id="nombre" placeholder="Tu nombre">
+        </div>
+
+        <div class="form-grupo">
+          <label>Apellido <span class="obligatorio">*</span></label>
+          <input type="text" id="apellido" placeholder="Tu apellido">
+        </div>
+
+      </div>
+
+      <div class="form-grupo">
+        <label>Correo electrónico <span class="obligatorio">*</span></label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com">
+      </div>
+
+      <div class="form-grupo">
+        <label>Teléfono <span class="obligatorio">*</span></label>
+        <input type="tel" id="telefono" placeholder="099 123 456">
+      </div>
+
+      <div class="form-grupo">
+        <label>Puesto al que te postulás <span class="obligatorio">*</span></label>
+
+        <select id="puesto">
+
+          <option value="">— Seleccioná un puesto —</option>
+
+          <option value="repositor">Repositor/a</option>
+
+          <option value="cajero">Cajero/a</option>
+
+          <option value="carnicero">Carnicero/a</option>
+
+          <option value="limpieza">Limpieza</option>
+
+          <option value="deposito">Depósito</option>
+
+          <option value="panadero">Panadero/a</option>
+
+        </select>
+      </div>
+
+      <div class="form-grupo">
+        <label>Contanos algo sobre vos</label>
+
+        <textarea
+          id="mensaje"
+          placeholder="Experiencia, disponibilidad, estudios, etc."
+        ></textarea>
+      </div>
+
+      <button class="btn-enviar" onclick="enviarFormulario()">
+
+        Enviar postulación ✉️
+
+      </button>
+
+      <div class="mensaje-exito" id="mensajeExito">
+
+        <span>🎉</span>
+
+        ¡Postulación enviada con éxito!
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <p>
+      © 2025 El Dorado ·
+      <a href="contacto.html">Contacto</a> ·
+      <a href="ofertas.html">Ofertas</a>
+    </p>
+
+  </footer>
+
+  <script>
+
+    function enviarFormulario() {
+
+      const nombre   = document.getElementById('nombre').value.trim();
+      const apellido = document.getElementById('apellido').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const puesto   = document.getElementById('puesto').value;
+
+      if (!nombre || !apellido || !email || !telefono || !puesto) {
+
+        alert('⚠️ Completá todos los campos obligatorios');
+
+        return;
+      }
+
+      document.getElementById('mensajeExito').style.display = 'block';
+
+      document.getElementById('mensajeExito')
+      .scrollIntoView({ behavior: 'smooth' });
+
+    }
+
+  </script>
+
+</body>
+</html>
